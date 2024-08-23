@@ -181,7 +181,7 @@ export default function Map({
       latitude === undefined ? 0 : latitude,
       longitude === undefined ? 0 : longitude,
     )
-    console.log(searchStores)
+    console.log('검색된 가게 : ', searchStores)
     searchStores.forEach((searchStore) => {
       const tempStore: MarkerStoreInfo = {
         storeId: searchStore.storeId,
@@ -192,8 +192,7 @@ export default function Map({
         discountPrice:
           searchStore.menuList[0].discountPrice === null
             ? 0
-            : searchStore.menuList[0].price -
-              searchStore.menuList[0].discountPrice,
+            : searchStore.menuList[0].discountPrice,
       }
       Stores.push(tempStore)
     })
@@ -291,7 +290,7 @@ export default function Map({
           const logo =
             info.discountPrice === 0
               ? greyIcon(info.menuPrice)
-              : yellowIcon(info.menuPrice, info.discountPrice)
+              : yellowIcon(info.menuPrice, info.menuPrice - info.discountPrice)
           logo.classList.add('drop')
           const markerView = new AdvancedMarkerElement({
             map: googleMap,

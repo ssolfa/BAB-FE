@@ -51,4 +51,5 @@ export const StyledButton = styled.div<StyledButtonProps>`
   justify-content: center;
   text-align: center;
   background-color: ${(props) => props.$bgColor || '#d7d7d7'};
+  cursor: pointer;
 `

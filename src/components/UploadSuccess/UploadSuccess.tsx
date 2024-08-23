@@ -38,6 +38,14 @@ export default function UploadSuccess({ retry }: UploadSuccessProps) {
     }
   }, [location.state])
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setRegistrationData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }))
+  }
+
   const handleNextClick = () => {
     saveStoreName(registrationData.storeName)
     setIsRegistered(true)
@@ -61,37 +69,46 @@ export default function UploadSuccess({ retry }: UploadSuccessProps) {
         <StyledInfoRow>
           <StyledLabel>등록번호</StyledLabel>
           <StyledValue
+            name="registrationNumber"
             type="text"
             value={registrationData.registrationNumber}
-            readOnly
+            onChange={handleInputChange}
           />
         </StyledInfoRow>
         <StyledInfoRow>
           <StyledLabel>상호(법인명)</StyledLabel>
           <StyledValue
+            name="storeName"
             type="text"
             value={registrationData.storeName}
-            readOnly
+            onChange={handleInputChange}
           />
         </StyledInfoRow>
         <StyledInfoRow>
           <StyledLabel>사업장 주소</StyledLabel>
-          <StyledValue type="text" value={registrationData.address} readOnly />
+          <StyledValue
+            name="address"
+            type="text"
+            value={registrationData.address}
+            onChange={handleInputChange}
+          />
         </StyledInfoRow>
         <StyledInfoRow>
           <StyledLabel>업태</StyledLabel>
           <StyledValue
+            name="businessTypes"
             type="text"
             value={registrationData.businessTypes}
-            readOnly
+            onChange={handleInputChange}
           />
         </StyledInfoRow>
         <StyledInfoRow>
           <StyledLabel>종목</StyledLabel>
           <StyledValue
+            name="categories"
             type="text"
             value={registrationData.categories}
-            readOnly
+            onChange={handleInputChange}
           />
         </StyledInfoRow>
       </StyledInfoContainer>

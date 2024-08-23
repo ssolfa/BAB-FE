@@ -27,15 +27,28 @@ export default function ShopMenu({
   saleprice,
   issale,
 }: ShopMenuProps) {
+  const handleDiscountShow = () => {
+    if (discountrate === '0%') {
+      return false
+    } else if (!issale) {
+      return false
+    } else {
+      return true
+    }
+  }
+  const DiscountShow = handleDiscountShow()
+
   return (
     <MenuContainer>
       <MenuImg src={img} />
       <InfoContainer>
         <MenuTitle>{title}</MenuTitle>
-        <MenuFixPrice>{issale ? fixprice : null}</MenuFixPrice>
-        <DiscountContainer $issale={issale}>
-          <MenuDiscountRate>{issale ? discountrate : null}</MenuDiscountRate>
-          <MenuSalePrice>{issale ? saleprice : fixprice}</MenuSalePrice>
+        <MenuFixPrice>{DiscountShow ? fixprice : null}</MenuFixPrice>
+        <DiscountContainer $issale={DiscountShow}>
+          <MenuDiscountRate>
+            {DiscountShow ? discountrate : null}
+          </MenuDiscountRate>
+          <MenuSalePrice>{DiscountShow ? saleprice : fixprice}</MenuSalePrice>
         </DiscountContainer>
       </InfoContainer>
     </MenuContainer>

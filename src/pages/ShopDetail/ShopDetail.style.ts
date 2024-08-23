@@ -44,12 +44,11 @@ export const ShopTitle = styled.div`
   margin-bottom: 4px;
 `
 
-export const ShopInfoContainer = styled.div<{ $issale: boolean }>`
+export const ShopInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0px 23px;
   position: relative;
-  top: ${(props) => (props.$issale ? '157px' : '177px')};
 `
 
 export const EventContainer = styled.div`
