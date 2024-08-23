@@ -26,6 +26,7 @@ export const MemberButton = styled.button`
   border-style: solid;
   border-radius: 20px;
   border-color: #d7d7d7;
+  color: #000000;
   width: 342px;
   height: 53px;
   padding: 12px;
@@ -34,6 +35,7 @@ export const MemberButton = styled.button`
   font-weight: 700;
   font-family: inherit;
   background-color: #ffffff;
+  color: #000000;
   cursor: pointer;
   transition: border-color 0.25s;
   &:hover,

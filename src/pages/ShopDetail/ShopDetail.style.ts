@@ -3,7 +3,10 @@ import styled from 'styled-components'
 export const DetailContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 400px;
   height: 100vh; /* 전체 높이를 100vh로 설정 */
+  background-color: #ffffff;
 `
 
 export const MenuHeader = styled.div`
@@ -27,9 +30,13 @@ export const BkImg = styled.div<{ $imgsrc: string }>`
   z-index: 1;
   display: flex;
   justify-content: space-between;
+  padding-bottom: 40px;
+  align-items: end;
 `
 
 export const ShopTitle = styled.div`
+  width: 220px;
+  word-break: keep-all; /*한글일 경우 띄어쓰기 기준으로 짤림*/
   font-size: 23px;
   font-weight: 700;
   color: #ffffff;
@@ -37,20 +44,20 @@ export const ShopTitle = styled.div`
   margin-bottom: 4px;
 `
 
-export const ShopInfoContainer = styled.div<{ onSale: boolean }>`
+export const ShopInfoContainer = styled.div<{ $issale: boolean }>`
   display: flex;
   flex-direction: column;
   padding: 0px 23px;
   position: relative;
-  top: ${(props) => (props.onSale ? '157px' : '177px')};
+  top: ${(props) => (props.$issale ? '157px' : '177px')};
 `
 
 export const EventContainer = styled.div`
   display: flex;
-  flex-direcion: column;
+  flex-direction: column;
   padding: 0px 23px;
-  position: relative;
-  top: 189px;
+  /* position: relative; */
+  /* top: 189px; */
 `
 
 export const Event = styled.div`
@@ -60,16 +67,20 @@ export const Event = styled.div`
 `
 
 export const LinkBtn = styled.div`
+  width: max-content;
   font-size: 13px;
   font-weight: 500;
   color: #ffffff;
   cursor: pointer;
+  display: flex;
+  gap: 6px;
 `
 
 export const MenuBody = styled.div`
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   border-radius: 15px;
   background-color: #ffffff;
   position: relative;

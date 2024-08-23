@@ -1,11 +1,15 @@
 import { fetchMarker } from '@apis/Marker/fetchMarker'
 import Map from '@components/MapCard/GoogleMapCard/Map'
+import MapModal from '@components/MapCard/ModalCard/MapModal'
 import AfterSearchBar from '@components/MapCard/SearchCard/AfterSearchBar'
 import SearchBar from '@components/MapCard/SearchCard/SearchBar'
 import { Status } from '@googlemaps/react-wrapper'
 import { MapContainer, SpinnerContainer } from '@pages/MapPage/MapRender.style'
 import { LoginStore } from '@stores/loginStore'
+import managerRegisterInfoStore from '@stores/managerRegisterInfoStore'
+import { useStudentInfoStore } from '@stores/studentInfoStore'
 import { MarkerStoreInfo } from '@stores/tempStore'
+import { mapStore } from '@stores/mapStore'
 import { lazy, ReactElement, Suspense, useEffect, useState } from 'react'
 import { SyncLoader } from 'react-spinners'
 
@@ -24,6 +28,9 @@ const AsyncWrapper = lazy(() =>
 )
 export default function MapRender() {
   const { kakao_token } = LoginStore((state) => state)
+  const { isStoreRegistered } = managerRegisterInfoStore((state) => state)
+  const { isSchoolSet } = useStudentInfoStore((state) => state)
+  const { isOpen } = mapStore()
   const [googleMap, setGoogleMap] = useState<google.maps.Map>()
   const [markers, setMarker] = useState<
     google.maps.marker.AdvancedMarkerElement[]
@@ -154,6 +161,11 @@ export default function MapRender() {
             </AsyncWrapper>
           </Suspense>
         )}
+        {isSchoolSet === false && isStoreRegistered === false ? (
+          isOpen === true ? (
+            <MapModal />
+          ) : null
+        ) : null}
       </MapContainer>
     </>
   )

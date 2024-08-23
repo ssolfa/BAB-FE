@@ -38,8 +38,8 @@ export const InfoContainer = styled.div`
   justify-content: center;
   gap: 3px;
 `
-export const DiscountContainer = styled.div<{ onsale: boolean }>`
+export const DiscountContainer = styled.div<{ $issale: boolean }>`
   display: flex;
   flex-direction: row;
-  gap: ${(props) => (props.onsale ? '8px' : '0px')};
+  gap: ${(props) => (props.$issale ? '8px' : '0px')};
 `

@@ -15,29 +15,51 @@ import {
 import RegistrationPrompt from '@components/RegistrationPrompt'
 import { LoginStore } from '@stores/loginStore'
 import managerRegisterInfoStore from '@stores/managerRegisterInfoStore'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ManagerPageContainer } from './ManagerPage.style'
 
 export default function ManagerPage() {
   const navigate = useNavigate()
-  const { isRegistered, isStoreRegistered, ownerNickname, updateFromApi } =
-    managerRegisterInfoStore()
+  const { updateFromApi } = managerRegisterInfoStore()
   const { user, kakao_token, kakaoEmail } = LoginStore((state) => state)
+  const [isStoreExist, setIsStoreExist] = useState(false)
+  const [isRegistered, setIsRegistered] = useState(false)
+
+  useEffect(() => {
+    const storedData = localStorage.getItem('manager-info')
+    if (storedData) {
+      const parsedData = JSON.parse(storedData)
+      console.log(parsedData)
+      console.log('사업자등록증여부:', parsedData.state.isRegistered)
+      setIsRegistered(parsedData.state.isRegistered || false)
+    } else {
+      console.log('로컬 스토리지에서 데이터를 찾을 수 없습니다.')
+    }
+  }, [])
 
   const fetchOwnerData = async () => {
     try {
       const response = await getOwnerMypage(kakao_token)
-      console.log(response)
 
       if (response.isSuccess) {
-        const { ownerId, ownerNickname, storeId, storeName } = response.result
+        const {
+          ownerId,
+          ownerNickname,
+          storeId,
+          storeName,
+          isUniversitySetting,
+          isStoreExist: isStoreExist,
+        } = response.result
         updateFromApi({
           ownerId,
           ownerNickname,
           storeId,
           storeName,
         })
+        setIsStoreExist(isStoreExist)
+        console.log(isStoreExist)
+        console.log(isUniversitySetting)
       } else {
         console.error('Failed to fetch owner mypage data:', response.message)
       }
@@ -97,7 +119,7 @@ export default function ManagerPage() {
   return (
     <ManagerPageContainer>
       <HeaderTitle title="마이페이지" $icon="notification" />
-      {isStoreRegistered ? (
+      {isStoreExist ? (
         <ManagerCompletedCard />
       ) : (
         <StyledCard $paddingtop="35px" $paddingbottom="26px">
@@ -107,7 +129,7 @@ export default function ManagerPage() {
         </StyledCard>
       )}
       <MyPageCardAccount accountID={kakaoEmail} />
-      {isStoreRegistered && <DiscountModal />}
+      {isStoreExist && <DiscountModal />}
     </ManagerPageContainer>
   )
 }

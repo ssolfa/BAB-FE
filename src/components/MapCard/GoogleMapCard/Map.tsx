@@ -116,34 +116,30 @@ export default function Map({
 
   //데이터 기준으로 학교 위도 경도 확인
   //더미데이터가 아닌 값만 있어야 테스트 가능
-  function findLocation() {
-    if (lat === 37.496336 && lng === 126.95733 && stores.length > 0) {
-      let location: SchoolLoc = { lat: 0, lng: 0 }
-      let latitudeAvg: number = 0
-      let latitudeMin: number = Infinity
-      let longitudeAvg: number = 0
-      let longitudeMin: number = Infinity
+  function findLocation(stores: MarkerStoreInfo[]): SchoolLoc {
+    let closestSchool: SchoolLoc = { lat: 0, lng: 0 }
+    let latitudeAvg: number = 0
+    let longitudeAvg: number = 0
 
-      entryMarkers.forEach((store) => {
-        latitudeAvg += store.latitude as number
-        longitudeAvg += store.longitude as number
-      })
-      latitudeAvg /= stores.length
-      longitudeAvg /= stores.length
-      schoolLocations.forEach((school) => {
-        const latDifference = Math.abs(school.lat - latitudeAvg)
-        const lngDifference = Math.abs(school.lng - longitudeAvg)
+    stores.forEach((store) => {
+      latitudeAvg += store.latitude as number
+      longitudeAvg += store.longitude as number
+    })
+    latitudeAvg /= stores.length
+    longitudeAvg /= stores.length
 
-        if (latDifference < latitudeMin && lngDifference < longitudeMin) {
-          location.lat = school.lat
-          location.lng = school.lng
-          latitudeMin = latDifference
-          longitudeMin = lngDifference
-        }
-      })
-      setLat(location.lat)
-      setLng(location.lng)
-    }
+    let minDistance = Infinity
+    schoolLocations.forEach((school) => {
+      const latDifference = school.lat - latitudeAvg
+      const lngDifference = school.lng - longitudeAvg
+      const distance = Math.hypot(latDifference, lngDifference)
+
+      if (distance < minDistance) {
+        closestSchool = school
+        minDistance = distance
+      }
+    })
+    return closestSchool
   }
 
   //지도 범위안 가게 필터링함수
@@ -205,12 +201,6 @@ export default function Map({
   }
 
   useEffect(() => {
-    if (stores.length > 0) {
-      findLocation()
-    }
-  }, [stores])
-
-  useEffect(() => {
     if (googleMap) {
       googleMap.setCenter({ lat: lat, lng: lng })
     }
@@ -219,11 +209,16 @@ export default function Map({
   //지도 초기화 o
   useEffect(() => {
     if (ref.current) {
+      let location: SchoolLoc
       const Stores: MarkerStoreInfo[] = []
       entryMarkers.forEach((marker) => {
         Stores.push(marker)
       })
       setStore(Stores)
+      location = findLocation(Stores)
+      console.log(location)
+      setLat(location.lat)
+      setLng(location.lng)
       const initialMap = new window.google.maps.Map(ref.current, {
         center: { lat, lng },
         zoom: 15,

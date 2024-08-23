@@ -4,11 +4,13 @@ interface MapStore {
   lat: number
   lng: number
   filterCheck: boolean
+  isOpen: boolean
   googleMap: google.maps.Map | null
   setLat: (value: number) => void
   setLng: (value: number) => void
   setGoogleMap: (map: google.maps.Map) => void
   setFilterCheck: () => void
+  setIsOpen: () => void
 }
 
 export const mapStore = create<MapStore>((set) => ({
@@ -18,8 +20,10 @@ export const mapStore = create<MapStore>((set) => ({
   lat: 37.496336,
   lng: 126.95733,
   filterCheck: false,
+  isOpen: true,
   setLat: (value) => set({ lat: value }),
   setLng: (value) => set({ lng: value }),
   setGoogleMap: (map) => set({ googleMap: map }),
   setFilterCheck: () => set((state) => ({ filterCheck: !state.filterCheck })),
+  setIsOpen: () => set((state) => ({ isOpen: !state.isOpen })),
 }))
