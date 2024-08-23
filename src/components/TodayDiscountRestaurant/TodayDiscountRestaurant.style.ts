@@ -22,14 +22,14 @@ export const Restaurant = styled.div`
   background-color: #ffffff;
 `
 export const DiscountType = styled.div`
-  font-weight: Bold;
+  font-weight: 700;
   font-size: 14px;
   line-height: 24px;
 
   color: #767676;
 `
 export const RestaurantName = styled.div`
-  font-weight: Bold;
+  font-weight: 700;
   font-size: 20px;
   line-height: 24px;
 
@@ -42,13 +42,14 @@ export const GoToRestaurantBtn = styled.button`
   top: 32px;
   right: 24px;
 
-  width: 79px;
+  /* width: 79px; */
   height: 28px;
 
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 6px;
+  padding: 4px 12px;
 
   border: none;
   border-radius: 10px;
@@ -82,7 +83,7 @@ export const Dish = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
 
-  font-weight: Medium;
+  font-weight: 500;
 `
 export const Dash = styled.hr`
   flex: 1;
@@ -93,12 +94,13 @@ export const Dash = styled.hr`
 export const DiscountedPrice = styled.div`
   margin-right: 12px;
 
-  font-weight: Bold;
+  font-weight: 700;
+  text-decoration: none;
 `
 export const Price = styled.div`
   text-decoration: line-through;
 
-  font-weight: Light;
+  font-weight: 300;
   color: #767676;
 `
 
