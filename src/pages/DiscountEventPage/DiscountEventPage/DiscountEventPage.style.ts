@@ -10,10 +10,6 @@ export const PageContainer = styled.div`
   height: 100%;
   box-sizing: border-box;
   padding: 58px 20px 20px;
-  overflow: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `
 
 export const EventForm = styled.form`

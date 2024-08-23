@@ -1,18 +1,18 @@
-import storeInfoStore from '@stores/storeInfoStore'
 import {
-  CardContent,
-  CardSubtitle,
-  CardButton,
-  EditButton,
-  ArrowIcon,
-} from './ManagerCompletedCard.style'
+  CardSubTitle,
+  CardTitle,
+  StyledCard,
+} from '@components/MyPageCard/MyPageCard.style'
 import { LoginStore } from '@stores/loginStore'
+import storeInfoStore from '@stores/storeInfoStore'
 import { useNavigate } from 'react-router-dom'
 import {
-  StyledCard,
-  CardTitle,
-  CardSubTitle,
-} from '@components/MyPageCard/MyPageCard.style'
+  ArrowIcon,
+  CardButton,
+  CardContent,
+  CardSubtitle,
+  EditButton,
+} from './ManagerCompletedCard.style'
 
 export default function ManagerCompletedCard() {
   const user = LoginStore((state) => state.user)

@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { generateUniqueId } from '@utils/generateUniqueId'
 
 interface Discount {
   menuId: number
