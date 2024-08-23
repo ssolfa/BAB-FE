@@ -56,7 +56,7 @@ export default function TodayDiscountRestaurant() {
               }
             >
               바로 가기
-              <span>&gt;</span>
+              <div>&gt;</div>
             </GoToRestaurantBtn>
             <MenuList>
               {restaurant.getOnSaleStoreMenuDataDtoList.map((menu) => (
@@ -79,6 +79,24 @@ export default function TodayDiscountRestaurant() {
           <Comment>할인을 시작한 가게가 생기면 알림으로 알려드릴게요.</Comment>
         </EmptyContainer>
       )}
+      <Restaurant key="342423424">
+        <DiscountType>할인할인할인</DiscountType>
+        <RestaurantName>가게이름가게이름가게이름</RestaurantName>
+        <GoToRestaurantBtn>
+          바로 가기
+          <div>&gt;</div>
+        </GoToRestaurantBtn>
+        <MenuList>
+          {/* {restaurant.getOnSaleStoreMenuDataDtoList.map((menu) => ( */}
+          <Menu key="34234234">
+            <Dish>메뉴메뉴</Dish>
+            <Dash />
+            <DiscountedPrice>3424</DiscountedPrice>
+            <Price>23423</Price>
+          </Menu>
+          {/* ))} */}
+        </MenuList>
+      </Restaurant>
     </RestaurantList>
   )
 }
