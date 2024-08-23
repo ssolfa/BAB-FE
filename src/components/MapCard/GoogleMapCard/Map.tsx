@@ -192,7 +192,8 @@ export default function Map({
         discountPrice:
           searchStore.menuList[0].discountPrice === null
             ? 0
-            : searchStore.menuList[0].discountPrice,
+            : searchStore.menuList[0].price -
+              searchStore.menuList[0].discountPrice,
       }
       Stores.push(tempStore)
     })
@@ -269,7 +270,7 @@ export default function Map({
         if (storeinfo.check === true) {
           marker.content = yellowIcon(
             storeinfo.price,
-            storeinfo.discountPrice as number,
+            (storeinfo.price - storeinfo.discountPrice) as number,
           )
         } else {
           marker.content = greyIcon(storeinfo.price)
